@@ -115,7 +115,7 @@ int main(int argc, char** argv) {
         }
         for (int icf=0; icf<7; icf++) {
             for (int i=0; i<nCent; i++) {
-                system[i] = System(particle_names[ipart], ctags[icf], nSource);
+                system[i] = System(particle_names[ipart], ktags[icf], nSource);
                 pdef[i] = Point();
                 pdef[i].SetTag(ktags[icf]);
                 gl->GetPoint("default", rapidity_index, particle_names[ipart], ktags[icf], i, &pdef[i]);
@@ -125,7 +125,7 @@ int main(int argc, char** argv) {
                     for (int k=0; k<nCuts4Source[j]; k++) {
                         pvrd[j][k][i] = Point();
                         pvrd[j][k][i].SetTag(cut_tags[j][k]);
-                        gl->GetPoint(cut_tags4file[j][k], rapidity_index, particle_names[ipart], ctags[icf], i, &pvrd[j][k][i]);
+                        gl->GetPoint(cut_tags4file[j][k], rapidity_index, particle_names[ipart], ktags[icf], i, &pvrd[j][k][i]);
                         source[j][i].AddVaried(pvrd[j][k][i]);
                     }
                     system[i].AddSource(source[j][i]);
