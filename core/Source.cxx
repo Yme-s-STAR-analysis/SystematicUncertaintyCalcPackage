@@ -39,10 +39,10 @@ double Source::GetSigma() {
             ediff2 = TMath::Power(pdef.err() - pvrd[ii].err(), 2);
             if (barlow) {
                 gamma = vdiff2 > ediff2 ? vdiff2 - ediff2 : 0.0;
-                sys_err_arr[ii] = gamma > 0 ? pdef.val() - pvrd[ii].val() : 0.0;
+                sys_err_arr[ii] = gamma > 0 ? pvrd[ii].val() - pdef.val() : 0.0;
                 Sigma += gamma;
             } else {
-                sys_err_arr[ii] = pdef.val() - pvrd[ii].val();
+                sys_err_arr[ii] = pvrd[ii].val() - pdef.val();
                 Sigma += vdiff2;
             }
         }
