@@ -44,6 +44,10 @@
 
 ## Change Logs
 
-* 13.03.2023 yghuang v1.0:
+* 13.05.2023 yghuang v1.1:
+
+> New feature: not only ouput LATEX table codes, but also create root files.
+
+* 13.05.2023 yghuang v1.0:
 
 > First version, all the fundamental functions are implemented.
