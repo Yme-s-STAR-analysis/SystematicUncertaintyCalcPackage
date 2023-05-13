@@ -40,7 +40,7 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
     std::ofstream fout;
     fout.open(outname);
     // landscape env.
-    fout << "\\begin{landscape}\n";
+    // fout << "\\begin{landscape}\n";
     // header
     fout << "\\begin{table}[]\n\\begin{tabular}{cc|ccccccccc}\n";
     // title row
@@ -94,6 +94,6 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
         }
     }
     fout << "\\end{tabular}\n\\caption{" << caption << "}\n\\label{tab:" << label << "}\n\\end{table}\n";
-    fout << "\\end{landscape}\n";
+    // fout << "\\end{landscape}\n";
     fout.close();
 }
