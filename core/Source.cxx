@@ -36,7 +36,7 @@ double Source::GetSigma() {
         Sigma = 0.0;
         for (int ii=0; ii<n; ii++) {
             vdiff2 = TMath::Power(pdef.val() - pvrd[ii].val(), 2);
-            ediff2 = TMath::Power(pdef.err() - pvrd[ii].err(), 2);
+            ediff2 = fabs(TMath::Power(pdef.err(), 2) - TMath::Power(pvrd[ii].err(), 2)); // 2.0: fix this mistake
             if (barlow) {
                 gamma = vdiff2 > ediff2 ? vdiff2 - ediff2 : 0.0;
                 sys_err_arr[ii] = gamma > 0 ? pvrd[ii].val() - pdef.val() : 0.0;

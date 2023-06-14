@@ -44,6 +44,10 @@
 
 ## Change Logs
 
+* 14.06.2023 yghuang v2.0:
+
+> The barlow check part is incorrect, now fixed.
+
 * 13.05.2023 yghuang v1.1:
 
 > New feature: not only ouput LATEX table codes, but also create root files.
