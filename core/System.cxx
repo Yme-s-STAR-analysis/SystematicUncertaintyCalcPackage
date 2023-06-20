@@ -100,6 +100,32 @@ double System::GetSysErrValue(int i, int j) {
     }
 }
 
+double System::GetSysErrRawValue(int i, int j) {
+    /* 
+        The Sigma from source i, not consider barlow check.
+    */
+    if (i >= n) {
+        return -1;
+    } else if (j >= sources[i].GetN()) {
+        return -1;
+    } else {
+        return sources[i].GetSysErrRawValue(j);
+    }
+}
+
+bool System::IsCutPassedBarlowCheck(int i, int j) {
+    /*
+        Get if a cut passed Barlow Check.
+    */
+    if (i >= n) {
+        return -1;
+    } else if (j >= sources[i].GetN()) {
+        return -1;
+    } else {
+        return sources[i].IsCutPassedBarlowCheck(j);
+    }
+}
+
 const char* & System::GetSysErrTag(int i, int j) {
     /*
         The tag of source i, cut j.

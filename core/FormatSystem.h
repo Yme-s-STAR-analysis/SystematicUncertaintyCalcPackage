@@ -7,6 +7,8 @@
 #include "Source.h"
 #include "System.h"
 
+class TString;
+
 namespace ygse {
 
     class FormatSystem {
@@ -24,7 +26,8 @@ namespace ygse {
             void Print(const char*);
             void Print(const char*, const char*, const char*);
             void SetFormat(const char*);
-            const char* GetFormattedFloat(double);
+            TString GetFormattedFloat(double);
+            TString GetFormattedFloat(double, bool);
     };
 
 }

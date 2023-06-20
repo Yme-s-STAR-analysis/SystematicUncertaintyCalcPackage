@@ -44,6 +44,11 @@
 
 ## Change Logs
 
+* 20.06.2023 yghuang v2.1:
+
+> Now the LATEX table will also show the systematic difference as RED text if this cut did not pass the Barlow Check.
+> Accordingly, the core codes are changed.
+
 * 14.06.2023 yghuang v2.0:
 
 > The barlow check part is incorrect, now fixed.

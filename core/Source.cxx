@@ -39,10 +39,14 @@ double Source::GetSigma() {
             ediff2 = fabs(TMath::Power(pdef.err(), 2) - TMath::Power(pvrd[ii].err(), 2)); // 2.0: fix this mistake
             if (barlow) {
                 gamma = vdiff2 > ediff2 ? vdiff2 - ediff2 : 0.0;
-                sys_err_arr[ii] = gamma > 0 ? pvrd[ii].val() - pdef.val() : 0.0;
+                pass_barlow[ii] = gamma > 0;
+                sys_err_raw_arr[ii] = pvrd[ii].val() - pdef.val();
+                sys_err_arr[ii] = pass_barlow[ii] ? sys_err_raw_arr[ii] : 0.0;
                 Sigma += gamma;
             } else {
-                sys_err_arr[ii] = pvrd[ii].val() - pdef.val();
+                sys_err_raw_arr[ii] = pvrd[ii].val() - pdef.val();
+                sys_err_arr[ii] = sys_err_raw_arr[ii];
+                pass_barlow[ii] = true;
                 Sigma += vdiff2;
             }
         }
@@ -61,19 +65,20 @@ const char* & Source::GetTag() {
 }
 
 double Source::GetSysErrValue(int i) {
-    if (i < n) {
-        return sys_err_arr[i];
-    } else {
-        return -1;
-    }
+    return i < n ? sys_err_arr[i] : -1;
+}
+
+double Source::GetSysErrRawValue(int i) {
+    return i < n ? sys_err_raw_arr[i] : -1;
+}
+
+bool Source::IsCutPassedBarlowCheck(int i) {
+    return i < n ? pass_barlow[i] : false;
+
 }
 
 const char* & Source::GetSysErrTag(int i) {
-    if (i < n) {
-        return pvrd[i].GetTag();
-    } else {
-        return ivd_str;
-    }
+    return i < n ? pvrd[i].GetTag() : ivd_str;
 }
 
 double Source::GetDefaultValue() {

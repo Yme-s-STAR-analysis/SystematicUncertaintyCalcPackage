@@ -25,15 +25,27 @@ void FormatSystem::LoadSystem(int i, System sys) {
 }
 
 void FormatSystem::Print(const char* outname) {
-    Print(outname, "Say something", "what");
+    Print(outname, "CAPTION", "LABEL");
 }
 
 void FormatSystem::SetFormat(const char* fmt) {
     this->fmt = fmt;
 }
 
-const char* FormatSystem::GetFormattedFloat(double val) {
-    return TString::Format(fmt, val).Data();
+TString FormatSystem::GetFormattedFloat(double val) {
+    return GetFormattedFloat(val, true);
+}
+
+TString FormatSystem::GetFormattedFloat(double val, bool is_passed_barlow) {
+    TString fmtval = TString::Format(fmt, val);
+    if (is_passed_barlow) {
+        std::cout << "passed: ";
+        std::cout << fmtval << std::endl;
+        return fmtval;
+    } else {
+        std::cout << "NOT passed: ";
+        return TString::Format("\\textcolor{red}{%s}", fmtval.Data());
+    }
 }
 
 void FormatSystem::Print(const char* outname, const char* caption, const char* label) {
@@ -57,17 +69,17 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
     // default rows
     fout << "\\multirow{2}{*}{" << systems[0].GetTag2() << "} & value ";
     for (int isys=0; isys<nCent; isys++) {
-        fout << "\t & " << GetFormattedFloat(systems[isys].GetDefaultValue());
+        fout << "\t & " << GetFormattedFloat(systems[isys].GetDefaultValue()).Data();
     }
     fout << "\t \\\\\n";
     fout << "\t & stat. error ";
     for (int isys=0; isys<nCent; isys++) {
-        fout << "\t & " << GetFormattedFloat(systems[isys].GetDefaultError());
+        fout << "\t & " << GetFormattedFloat(systems[isys].GetDefaultError()).Data();
     }
     fout << "\t \\\\\n";
     fout << "\t & sys. error ";
     for (int isys=0; isys<nCent; isys++) {
-        fout << "\t & " << GetFormattedFloat(systems[isys].GetSigma());
+        fout << "\t & " << GetFormattedFloat(systems[isys].GetSigma()).Data();
     }
     fout << "\t \\\\ \\hline\n";
     // varied sources
@@ -79,13 +91,13 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
         for (int icut=0; icut<ncuts; icut++) {
             fout << "\t&" << systems[0].GetSysErrTag(ivrd, icut);
             for (int isys=0; isys<nCent; isys++) {
-                fout << "\t & " << GetFormattedFloat(systems[isys].GetSysErrValue(ivrd, icut));
+                fout << "\t & " << GetFormattedFloat(systems[isys].GetSysErrRawValue(ivrd, icut), systems[isys].IsCutPassedBarlowCheck(ivrd, icut)).Data();
             }
             fout << "\\\\\n";
         }
         fout << "\t& $\\Sigma$";
         for (int isys=0; isys<nCent; isys++) {
-            fout << "\t & " << GetFormattedFloat(systems[isys].GetSysErrValue(ivrd));
+            fout << "\t & " << GetFormattedFloat(systems[isys].GetSysErrValue(ivrd)).Data();
         }
         if (ivrd == nvrd-1) {
             fout << "\n";

@@ -12,7 +12,9 @@ namespace ygse {
             int i;
             Point pdef; // default points
             Point pvrd[10]; // varied points
+            double sys_err_raw_arr[10]; // uncertainty from each CUT, will not set barlow check not passed values as 0
             double sys_err_arr[10]; // uncertainty from each CUT
+            bool pass_barlow[10]; // record if the cut passed barlow check, will be true if passed
             const char* tag;
             double Sigma;
             bool cache;
@@ -29,6 +31,8 @@ namespace ygse {
             int GetN();
             const char* & GetTag();
             double GetSysErrValue(int);
+            double GetSysErrRawValue(int);
+            bool IsCutPassedBarlowCheck(int);
             const char* & GetSysErrTag(int);
             double GetDefaultValue();
             double GetDefaultError();

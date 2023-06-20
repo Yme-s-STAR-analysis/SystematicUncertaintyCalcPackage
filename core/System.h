@@ -34,6 +34,8 @@ namespace ygse {
             double GetSysErrValue(int);
             const char* & GetSysErrTag(int);
             double GetSysErrValue(int, int);
+            double GetSysErrRawValue(int, int);
+            bool IsCutPassedBarlowCheck(int, int);
             const char* & GetSysErrTag(int, int);
             double GetDefaultValue();
             double GetDefaultError();
