@@ -39,11 +39,8 @@ TString FormatSystem::GetFormattedFloat(double val) {
 TString FormatSystem::GetFormattedFloat(double val, bool is_passed_barlow) {
     TString fmtval = TString::Format(fmt, val);
     if (is_passed_barlow) {
-        std::cout << "passed: ";
-        std::cout << fmtval << std::endl;
         return fmtval;
     } else {
-        std::cout << "NOT passed: ";
         return TString::Format("\\textcolor{red}{%s}", fmtval.Data());
     }
 }
