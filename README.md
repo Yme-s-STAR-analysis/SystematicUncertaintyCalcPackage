@@ -44,6 +44,10 @@
 
 ## Change Logs
 
+* 23.06.2023 yghuang v2.2:
+
+> New feature: make the plot of a variable with selected centrality. See MakeDiffPlot.
+
 * 20.06.2023 yghuang v2.1:
 
 > Now the LATEX table will also show the systematic difference as RED text if this cut did not pass the Barlow Check.
