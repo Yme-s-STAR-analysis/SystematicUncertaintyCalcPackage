@@ -14,7 +14,7 @@ void GraphLoader::GetPoint(const char* cut_tag, const char* file_tag, const char
     // particle_tag: Netp
     // var_tag: C1
     // cent: 0
-    tf = new TFile(Form("%s/%s/%s.root", path, cut_tag, file_tag));
+    tf = new TFile(Form("%s/%s.coll/%s.vz0.root", path, cut_tag, file_tag));
     tf->GetObject(Form("%s_%s", particle_tag, var_tag), tg);
     p->SetValue(tg->GetPointY(cent));
     p->SetError(tg->GetErrorY(cent));

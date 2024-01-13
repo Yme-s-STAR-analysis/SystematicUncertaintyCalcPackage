@@ -1,20 +1,18 @@
-#!/bin/bash 
+#!/bin/zsh
 
-# This is just a template of making LATEX table with root files.
+RPATH=/Users/huangyige/Work/DataAnalysis/star/BES2/14p6/cumulant/240111Sys/roots
+TPATH=../output
 
-# Exec. MakeRootFile arguments are showing below:
-# :folder path: a string, the path to the root files (root path)
-# :rapidity index: a string (indeed an integer), 1 to 7
-# :out dir: a string, path to save the out put root file
-
-FPATH=/Users/huangyige/Work/DataAnalysis/star/BES2/19p6/18AprSys/roots
-# RIDX=y5
-OPATH=roots
-
-if [ ! -d $OPATH ]; then
-        mkdir $OPATH
+if [ ! -d $TPATH ]; then
+        mkdir $TPATH
 fi
 
-for RIDX in y1 y2 y3 y4 y5 y6 y7 ; do
-        ./MakeRootFile $FPATH $RIDX $OPATH
-done;
+# y scan
+for x (1 2 3 4 5) {
+    ./MakeRootFile $RPATH cum.cbwc.y0p$x $TPATH
+}
+# pt scan
+./MakeRootFile $RPATH cum.cbwc.pt0p8 $TPATH
+for x (0 2 4 6 8) {
+    ./MakeRootFile $RPATH cum.cbwc.pt1p$x $TPATH
+}
