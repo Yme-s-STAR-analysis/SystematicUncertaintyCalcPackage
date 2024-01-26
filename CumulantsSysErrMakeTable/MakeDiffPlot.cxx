@@ -6,6 +6,7 @@
 #include "TLatex.h"
 #include "TLegend.h"
 #include "TMath.h"
+#include "TLine.h"
 #include "TGraphErrors.h"
 
 #include "Point.h"
@@ -24,7 +25,7 @@ int main(int argc, char** argv) {
     /*
         Args:
         :folder path: a string, the path to the root files (root path)
-        :rapidity index: a string, like cum.cbwc.trad.y5
+        :scan tag: a string, like y0p5
         :particle tag: Netp, Pro or Pbar
         :var idx: 0 to 3 for C1 ~ C4, 4 to 6 for R21 ~ R42, 7 to 10 for k1 ~ k4, 11 to 13 fork21 ~ k41, ...
         :cent tag: centrality tag 0 to 8
@@ -32,7 +33,7 @@ int main(int argc, char** argv) {
     */
 
     GraphLoader* gl = new GraphLoader(argv[1]);
-    const char* rapidity_index = argv[2];
+    const char* scan_tag = argv[2];
     const char* particle_tag = argv[3];
     const char* var_idx = argv[4];
     const char* cent_tag = argv[5];
@@ -74,13 +75,13 @@ int main(int argc, char** argv) {
 
     const int nCuts = 20;
     const char* cutsFolderList[nCuts] = { // read root files
-        "default.coll", 
-        "dca0p8.coll", "dca0p9.coll", "dca1p1.coll", "dca1p2.coll", 
-        "nhits15.coll", "nhits18.coll", "nhits22.coll", "nhits25.coll", 
-        "nsig1p6.coll", "nsig1p8.coll", "nsig2p2.coll", "nsig2p5.coll", 
-        "mass21.coll", "mass22.coll", "mass23.coll", "mass24.coll", 
-        "eff1.coll", "eff2.coll", 
-        "pidmode.coll"
+        "default", 
+        "dca0p8", "dca0p9", "dca1p1", "dca1p2", 
+        "nhit15", "nhit18", "nhit22", "nhit25", 
+        "nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5", 
+        "mass21", "mass22", "mass23", "mass24", 
+        "eff1", "eff2", 
+        "PidSys"
     };
 
     const char* cutTags[nCuts] = { // x labels
@@ -89,44 +90,59 @@ int main(int argc, char** argv) {
         "nHitsFit > 15", "nHitsFit > 18", "nHistFit > 22", "nHisFit > 25", 
         "|n#sigma-#delta| < 1.6", "|n#sigma-#delta| < 1.8", "|n#sigma-#delta| < 2.2", "|n#sigma-#delta| < 2.5", 
         "m^{2}#in(0.50,1.10)", "m^{2}#in(0.55,1.15)", "m^{2}#in(0.65,1.25)", "m^{2}#in(0.70,1.30)", 
-        "#epsilon#times1.02", "#epsilon#times0.98", 
+        "#epsilon#times0.98", "#epsilon#times1.02", 
         "#gamma_{PID} varied"
     };
 
     double values[nCuts];
     double errors[nCuts]; // statistic error for each cut
     bool pass_barlow[nCuts];
+    // new feature: the limitation of changed obserserbal to pass barlow check
+    // assume that the std. dev. of this point is fixed, and default case is fixed, so we can get the critical lower and upper limit of this systematic varied point to pass barlow check
+    // mathematically, should be: O_def +- \sqrt((\sigma_def^2 - \sigma_vrd^2))
+    double barlow_err[nCuts]; 
     
     const int ms_passed = 20;
     const int ms_failed = 24;
     const int mc_passed = 1;
     const int mc_failed = 2;
+    const int band_color = 4;
 
     for (int i=0; i<nCuts; i++) {
         values[i] = 0.0;
         errors[i] = 0.0;
         pass_barlow[i] = false;
+        barlow_err[i] = 0.0;
     }
 
     Point pdef;
     Point pvrd;
 
-    gl->GetPoint(cutsFolderList[0], rapidity_index, particle_tag, var_tag, cent_idx, &pdef);
+    gl->GetPoint(cutsFolderList[0], scan_tag, particle_tag, var_tag, cent_idx, &pdef);
 
     for (int i=0; i<nCuts; i++) { // get varied
-        gl->GetPoint(cutsFolderList[i], rapidity_index, particle_tag, var_tag, cent_idx, &pvrd);
+        gl->GetPoint(cutsFolderList[i], scan_tag, particle_tag, var_tag, cent_idx, &pvrd);
         values[i] = pvrd.GetValue();
         errors[i] = pvrd.GetError();
+        barlow_err[i] = TMath::Sqrt(fabs(TMath::Power(pvrd.err(), 2) - TMath::Power(pdef.err(), 2)));
         if (i == 0) { // default can always pass the Barlow Check
             pass_barlow[i] = true;
         } else {
             pass_barlow[i] = IsPassedBarlow(pdef, pvrd);
+            if (pass_barlow[i]) { std::cout << "Passed!\n"; }
+            else { std::cout << "Failed!\n"; }
+            std::cout<<"current index: " << i << " - cut: " << cutsFolderList[i] << " scan tag = " << scan_tag << ", particle_tag = " << particle_tag << ", var tag = " << var_tag << ", cent_idx = " << cent_idx << ", values[i] = " << values[i] << ", errors[i] = " << errors[i] << ", barlow_err[i] = " << barlow_err[i] << ".\n";
         }
     }
 
     // now prepare the TGraph
     TGraphErrors* tgp = new TGraphErrors(); // passed
     TGraphErrors* tgf = new TGraphErrors(); // failed
+    TBox* tbx = new TBox(); // barlow limit
+    TLine* tline = new TLine(); // barlow limit
+     
+    tbx->SetFillColorAlpha(band_color, 0.4);
+    tline->SetLineColor(band_color);
 
     tgp->SetMarkerColor(mc_passed);
     tgf->SetMarkerColor(mc_failed);
@@ -162,6 +178,7 @@ int main(int argc, char** argv) {
         }
     }
 
+
     // get the limitation of y axis
     double vmax = -999;
     double vmin = 999;
@@ -171,11 +188,11 @@ int main(int argc, char** argv) {
         double vlow = values[i] - errors[i];
         vmin = vlow < vmin ? vlow : vmin;
     }
-    const double y_range_fac = 1.5;
+    const double y_range_fac = 2.5;
     double dist = vmax - vmin;
     double vmean = 0.5 * (vmax + vmin);
-    vmax = vmean + y_range_fac * dist;
-    vmin = vmean - y_range_fac * dist;
+    vmax = vmean + y_range_fac * dist/2;
+    vmin = vmean - y_range_fac * dist/2;
 
     TCanvas* c = new TCanvas();
     c->cd();
@@ -191,6 +208,12 @@ int main(int argc, char** argv) {
     lat->DrawLatexNDC(0.15, 0.85, var_title);
     lat->DrawLatexNDC(0.35, 0.85, cent_titles[cent_idx]);
 
+    // plot barlow limit boxes
+    for (int i=1; i<nCuts; i++) {
+        tline->DrawLine(i-0.3, pdef.val(), i+0.3, pdef.val());
+        tbx->DrawBox(i-0.3, pdef.val() - barlow_err[i], i+0.3, pdef.val() + barlow_err[i]);
+    }
+
     TLegend* leg = new TLegend(0.65, 0.75, 0.85, 0.9);
     leg->AddEntry(tgp, "Passed Barlow Check");
     leg->AddEntry(tgf, "Failed to pass Barlow Check");
@@ -198,7 +221,7 @@ int main(int argc, char** argv) {
 
     tgp->Draw("epsame");
     tgf->Draw("epsame");
-    c->Print(Form("%s/%s_%s.pdf", fig_path, var_tag, cent_tag));
+    c->Print(Form("%s/%s%s%s.pdf", fig_path, particle_tag, var_tag, cent_tag));
 
     return 0;
 }

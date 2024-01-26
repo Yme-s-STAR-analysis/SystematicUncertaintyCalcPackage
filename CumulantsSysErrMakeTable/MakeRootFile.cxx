@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
         {"15", "18", "22", "25"}, 
         {"1.6", "1.8", "2.2", "2.5"}, 
         {"(0.50,1.10)", "(0.55,1.15)", "(0.65,1.25)", "(0.70,1.30)"},
-        {"$\\times0.95$", "$\\times1.05$", "None", "None"},
+        {"$\\times0.98$", "$\\times1.02$", "None", "None"},
         {"-", "None", "None", "None"},
     };
     const char* cut_tags4file[nSource][nCut] = { // for get Graph
