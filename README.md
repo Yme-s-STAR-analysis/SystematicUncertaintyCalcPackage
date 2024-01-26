@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: Sat. May 13, 2023
+* Data: 27.01.2024
 
-* Version: 1.0
+* Version: 2.5
 
 ## Guide
 
@@ -43,6 +43,16 @@
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`. 
 
 ## Change Logs
+
+* 27.01.2024 yghuang v2.5:
+
+> Updated: LATEX table generator
+
+* 17.01.2024 yghuang v2.4:
+
+> Updated: Difference plot for systematic uncertainty cuts (those who passed Barlow check or not)
+>
+> Updated: LATEX table generator
 
 * 23.06.2023 yghuang v2.2:
 
