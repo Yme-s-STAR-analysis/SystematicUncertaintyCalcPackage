@@ -83,7 +83,7 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
     int nvrd = systems[0].GetN();
     for (int ivrd=0; ivrd<nvrd; ivrd++) {
         int ncuts = systems[0].GetN(ivrd);
-        fout << "\\multirow{" << ncuts+1 << "}{*}";
+        fout << "\\multirow{" << ncuts+2 << "}{*}";
         fout << "{" << systems[0].GetSysErrTag(ivrd) << "}";
         for (int icut=0; icut<ncuts; icut++) {
             fout << "\t&" << systems[0].GetSysErrTag(ivrd, icut);
@@ -95,6 +95,10 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
         fout << "\t& $\\Sigma$";
         for (int isys=0; isys<nCent; isys++) {
             fout << "\t & " << GetFormattedFloat(systems[isys].GetSysErrValue(ivrd)).Data();
+        }
+        fout << "\\\\ \n\t&";
+        for (int isys=0; isys<nCent; isys++) {
+            fout << "\t & " << Form("%.1f", systems[isys].GetSysErrValue(ivrd)*100 / systems[isys].GetDefaultValue()) << "\\\%";
         }
         if (ivrd == nvrd-1) {
             fout << "\n";
