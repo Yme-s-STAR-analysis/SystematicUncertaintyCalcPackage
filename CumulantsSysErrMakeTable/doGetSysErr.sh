@@ -9,34 +9,36 @@
 # :var tag: C1 ~ C4, R21 ~ R42, k1 ~ k4, k21 ~ k41, ...
 # :table path: to save the LATEX table source codes
 
-FPATH=/Users/huangyige/Work/DataAnalysis/star/BES2/14p6/cumulant/240111Sys/roots
+FPATH=/Users/huangyige/Work/DataAnalysis/star/BES2/14p6/cumulant/240206Sys/roots
 RIDX=y0p5
-PTAG=Netp
+# PTAG=Netp
 # VTAG=R42
 TPATH=../tables
-
+WITHX=0
 if [ ! -d $TPATH ]; then
         mkdir $TPATH
 fi
 
-# cumulants
-for x (1 2 3 4) {
-        echo C$x
-        ./run $FPATH cum.cbwc.$RIDX $PTAG C$x $TPATH
-        if [[ $PTAG != "Netp" ]] {
-                echo k$x
-                ./run $FPATH cum.cbwc.$RIDX $PTAG k$x $TPATH
+for PTAG ("Netp" "Pro" "Pbar") {
+        # cumulants
+        for x (1 2 3 4) {
+                echo C$x
+                ./run $FPATH $RIDX $PTAG C$x $TPATH $WITHX
+                if [[ $PTAG != "Netp" ]] {
+                        echo k$x
+                        ./run $FPATH $RIDX $PTAG k$x $TPATH $WITHX
+                }
         }
-}
-# cumulant ratios
-for x (21 32 42) {
-        echo R$x
-        ./run $FPATH cum.cbwc.$RIDX $PTAG R$x $TPATH
-}
-# kappa ratios
-for x (21 31 41) {
-        if [[ $PTAG != "Netp" ]] {
-                echo k$x
-                ./run $FPATH cum.cbwc.$RIDX $PTAG k$x $TPATH
+        # cumulant ratios
+        for x (21 32 42) {
+                echo R$x
+                ./run $FPATH $RIDX $PTAG R$x $TPATH $WITHX
         }
-}
+        # kappa ratios
+        for x (21 31 41) {
+                if [[ $PTAG != "Netp" ]] {
+                        echo k$x
+                        ./run $FPATH $RIDX $PTAG k$x $TPATH $WITHX
+                }
+        }
+} 
