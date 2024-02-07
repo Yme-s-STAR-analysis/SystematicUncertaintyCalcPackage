@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 06.02.2024
+* Data: 07.02.2024
 
-* Version: 2.6
+* Version: 2.7
 
 ## Guide
 
@@ -43,6 +43,10 @@
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`. 
 
 ## Change Logs
+
+* 07.02.2024 yghuang v2.7:
+
+> Updated: LATEX table generator, and a python script for generating a concated LATEX code
 
 * 06.02.2024 yghuang v2.6:
 
