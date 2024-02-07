@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 27.01.2024
+* Data: 06.02.2024
 
-* Version: 2.5
+* Version: 2.6
 
 ## Guide
 
@@ -43,6 +43,10 @@
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`. 
 
 ## Change Logs
+
+* 06.02.2024 yghuang v2.6:
+
+> Updated: LATEX table generator
 
 * 27.01.2024 yghuang v2.5:
 
