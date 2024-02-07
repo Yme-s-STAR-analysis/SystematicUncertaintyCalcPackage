@@ -16,5 +16,5 @@ class GraphLoader {
         }
         ~GraphLoader() {}
 
-        void GetPoint(const char*, const char*, const char*, const char*, int, ygse::Point*);
+        void GetPoint(const char*, const char*, const char*, const char*, int, ygse::Point*, bool);
 };
