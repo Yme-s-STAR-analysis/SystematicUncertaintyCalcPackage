@@ -91,6 +91,10 @@ int main(int argc, char** argv) {
         fmt.LoadSystem(i, system[i]);
     }
 
-    fmt.Print(Form("%s/%s_%s_%s.txt", table_path, particle_tag, var_tag, rapidity_index));
+    if (withX) {
+        fmt.Print(Form("%s/%s_%s_%sX.txt", table_path, particle_tag, var_tag, rapidity_index));
+    } else {
+        fmt.Print(Form("%s/%s_%s_%s.txt", table_path, particle_tag, var_tag, rapidity_index));
+    }
     return 0;
 }
