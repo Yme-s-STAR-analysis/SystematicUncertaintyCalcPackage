@@ -1,6 +1,6 @@
 SRC=../core
 
-all: run
+all: run MakeRootFile MakeDiffPlot
 
 run: main.cxx $(SRC)/Point.cxx $(SRC)/Source.cxx $(SRC)/System.cxx $(SRC)/FormatSystem.cxx GraphLoader.cxx
 	g++ $^ -o $@ -I$(SRC) `root-config --libs --cflags` -O3 -std=c++17
@@ -12,4 +12,4 @@ MakeDiffPlot: MakeDiffPlot.cxx $(SRC)/Point.cxx $(SRC)/Source.cxx $(SRC)/System.
 	g++ $^ -o $@ -I$(SRC) `root-config --libs --cflags` -O3 -std=c++17
 
 clean:
-	rm run
+	rm run MakeRootFile MakeDiffPlot
