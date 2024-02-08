@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
         // :rapidity index: a string (indeed an integer), 1 to 7
         :scan tag: a string, liek y0p5, pt1p4 etc.
         :out dir: a string, path to save the out put root file
+        :withX: 0 for RefMult3 and 1 for RefMult3X
     */
 
     TGraphErrors* tgs[3][14];
@@ -56,6 +57,7 @@ int main(int argc, char** argv) {
     GraphLoader* gl = new GraphLoader(argv[1]);
     const char* scan_tag = argv[2];
     const char* out_dir = argv[3];
+    bool withX = (bool)atoi(argv[4]);
 
     const int nCent = 9;
     const int nSource = 6;
@@ -82,7 +84,7 @@ int main(int argc, char** argv) {
         {"nhit15", "nhit18", "nhit22", "nhit25"}, 
         {"nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5"}, 
         {"mass21", "mass22", "mass23", "mass24"}, 
-        {"eff1", "eff2", "None", "None"},
+        {"effm", "effp", "None", "None"},
         {"PidSys", "None", "None", "None"}
     };
     const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 1}; // set N for sources
@@ -96,14 +98,14 @@ int main(int argc, char** argv) {
                 system[i] = System(particle_names[ipart], ctags[icum], nSource);
                 pdef[i] = Point();
                 pdef[i].SetTag(ctags[icum]);
-                gl->GetPoint("default", scan_tag, particle_names[ipart], ctags[icum], i, &pdef[i]);
+                gl->GetPoint("default", scan_tag, particle_names[ipart], ctags[icum], i, &pdef[i], withX);
                 for (int j=0; j<nSource; j++) {
                     source[j][i] = Source(source_tags[j], nCuts4Source[j], true);
                     source[j][i].SetDefault(pdef[i]);
                     for (int k=0; k<nCuts4Source[j]; k++) {
                         pvrd[j][k][i] = Point();
                         pvrd[j][k][i].SetTag(cut_tags[j][k]);
-                        gl->GetPoint(cut_tags4file[j][k], scan_tag, particle_names[ipart], ctags[icum], i, &pvrd[j][k][i]);
+                        gl->GetPoint(cut_tags4file[j][k], scan_tag, particle_names[ipart], ctags[icum], i, &pvrd[j][k][i], withX);
                         source[j][i].AddVaried(pvrd[j][k][i]);
                     }
                     system[i].AddSource(source[j][i]);
@@ -121,14 +123,14 @@ int main(int argc, char** argv) {
                 system[i] = System(particle_names[ipart], ktags[icf], nSource);
                 pdef[i] = Point();
                 pdef[i].SetTag(ktags[icf]);
-                gl->GetPoint("default", scan_tag, particle_names[ipart], ktags[icf], i, &pdef[i]);
+                gl->GetPoint("default", scan_tag, particle_names[ipart], ktags[icf], i, &pdef[i], withX);
                 for (int j=0; j<nSource; j++) {
                     source[j][i] = Source(source_tags[j], nCuts4Source[j], true);
                     source[j][i].SetDefault(pdef[i]);
                     for (int k=0; k<nCuts4Source[j]; k++) {
                         pvrd[j][k][i] = Point();
                         pvrd[j][k][i].SetTag(cut_tags[j][k]);
-                        gl->GetPoint(cut_tags4file[j][k], scan_tag, particle_names[ipart], ktags[icf], i, &pvrd[j][k][i]);
+                        gl->GetPoint(cut_tags4file[j][k], scan_tag, particle_names[ipart], ktags[icf], i, &pvrd[j][k][i], withX);
                         source[j][i].AddVaried(pvrd[j][k][i]);
                     }
                     system[i].AddSource(source[j][i]);
@@ -140,7 +142,12 @@ int main(int argc, char** argv) {
         }
     }
 
-    TFile* fout = new TFile(Form("%s/%s.root", out_dir, scan_tag), "recreate");
+    TFile* fout;
+    if (withX) {
+        fout = new TFile(Form("%s/%sX.root", out_dir, scan_tag), "recreate");
+    } else {
+        fout = new TFile(Form("%s/%s.root", out_dir, scan_tag), "recreate");
+    }
     fout->cd();
     for (int i=0; i<3; i++) {
         for (int j=0; j<7; j++) {
