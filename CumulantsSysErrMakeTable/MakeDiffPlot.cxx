@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
         :var idx: 0 to 3 for C1 ~ C4, 4 to 6 for R21 ~ R42, 7 to 10 for k1 ~ k4, 11 to 13 fork21 ~ k41, ...
         :cent tag: centrality tag 0 to 8
         :fig path: to save the plot
+        :withX: 0 for RefMult3 and 1 for RefMult3X
     */
 
     GraphLoader* gl = new GraphLoader(argv[1]);
@@ -38,6 +39,7 @@ int main(int argc, char** argv) {
     const char* var_idx = argv[4];
     const char* cent_tag = argv[5];
     const char* fig_path = argv[6];
+    bool withX = (bool)atoi(argv[7]);
 
     int cent_idx = std::atoi(cent_tag);
     if (cent_idx < 0 || cent_idx > 8) {
@@ -80,7 +82,7 @@ int main(int argc, char** argv) {
         "nhit15", "nhit18", "nhit22", "nhit25", 
         "nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5", 
         "mass21", "mass22", "mass23", "mass24", 
-        "eff1", "eff2", 
+        "effm", "effp", 
         "PidSys"
     };
 
@@ -118,10 +120,10 @@ int main(int argc, char** argv) {
     Point pdef;
     Point pvrd;
 
-    gl->GetPoint(cutsFolderList[0], scan_tag, particle_tag, var_tag, cent_idx, &pdef);
+    gl->GetPoint(cutsFolderList[0], scan_tag, particle_tag, var_tag, cent_idx, &pdef, withX);
 
     for (int i=0; i<nCuts; i++) { // get varied
-        gl->GetPoint(cutsFolderList[i], scan_tag, particle_tag, var_tag, cent_idx, &pvrd);
+        gl->GetPoint(cutsFolderList[i], scan_tag, particle_tag, var_tag, cent_idx, &pvrd, withX);
         values[i] = pvrd.GetValue();
         errors[i] = pvrd.GetError();
         barlow_err[i] = TMath::Sqrt(fabs(TMath::Power(pvrd.err(), 2) - TMath::Power(pdef.err(), 2)));
@@ -129,9 +131,9 @@ int main(int argc, char** argv) {
             pass_barlow[i] = true;
         } else {
             pass_barlow[i] = IsPassedBarlow(pdef, pvrd);
-            if (pass_barlow[i]) { std::cout << "Passed!\n"; }
-            else { std::cout << "Failed!\n"; }
-            std::cout<<"current index: " << i << " - cut: " << cutsFolderList[i] << " scan tag = " << scan_tag << ", particle_tag = " << particle_tag << ", var tag = " << var_tag << ", cent_idx = " << cent_idx << ", values[i] = " << values[i] << ", errors[i] = " << errors[i] << ", barlow_err[i] = " << barlow_err[i] << ".\n";
+            // if (pass_barlow[i]) { std::cout << "Passed!\n"; }
+            // else { std::cout << "Failed!\n"; }
+            // std::cout<<"current index: " << i << " - cut: " << cutsFolderList[i] << " scan tag = " << scan_tag << ", particle_tag = " << particle_tag << ", var tag = " << var_tag << ", cent_idx = " << cent_idx << ", values[i] = " << values[i] << ", errors[i] = " << errors[i] << ", barlow_err[i] = " << barlow_err[i] << ".\n";
         }
     }
 
@@ -221,7 +223,11 @@ int main(int argc, char** argv) {
 
     tgp->Draw("epsame");
     tgf->Draw("epsame");
-    c->Print(Form("%s/%s%s%s.pdf", fig_path, particle_tag, var_tag, cent_tag));
+    if (withX) {
+        c->Print(Form("%s/%s%s%sX.pdf", fig_path, particle_tag, var_tag, cent_tag));
+    } else {
+        c->Print(Form("%s/%s%s%s.pdf", fig_path, particle_tag, var_tag, cent_tag));
+    }
 
     return 0;
 }
