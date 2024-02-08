@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 07.02.2024
+* Data: 08.02.2024
 
-* Version: 2.7
+* Version: 2.8
 
 ## Guide
 
@@ -43,6 +43,14 @@
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`. 
 
 ## Change Logs
+
+* 08.02.2024 yghuang v2.8:
+
+> Update the formula of a systematic uncertainty for a source
+>
+>> Now we only devide by n (passed Barlow check) instead of n (all changed cuts)
+>
+> Updated DiffPlot and RootFile generator
 
 * 07.02.2024 yghuang v2.7:
 
