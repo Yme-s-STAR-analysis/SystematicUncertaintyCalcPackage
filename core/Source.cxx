@@ -34,6 +34,7 @@ double Source::GetSigma() {
         double gamma;
 
         Sigma = 0.0;
+        int n_pass = n; // v2.8 new: the formula is changed
         for (int ii=0; ii<n; ii++) {
             vdiff2 = TMath::Power(pdef.val() - pvrd[ii].val(), 2);
             ediff2 = fabs(TMath::Power(pdef.err(), 2) - TMath::Power(pvrd[ii].err(), 2)); // 2.0: fix this mistake
@@ -43,6 +44,7 @@ double Source::GetSigma() {
                 sys_err_raw_arr[ii] = pvrd[ii].val() - pdef.val();
                 sys_err_arr[ii] = pass_barlow[ii] ? sys_err_raw_arr[ii] : 0.0;
                 Sigma += gamma;
+                if (gamma <=0 ) { n_pass -= 1; }
             } else {
                 sys_err_raw_arr[ii] = pvrd[ii].val() - pdef.val();
                 sys_err_arr[ii] = sys_err_raw_arr[ii];
@@ -50,8 +52,10 @@ double Source::GetSigma() {
                 Sigma += vdiff2;
             }
         }
-
-        Sigma = TMath::Sqrt(Sigma*1.0 / n);
+        
+        n_pass = n_pass == 0 ? 1 : n_pass;
+        Sigma = TMath::Sqrt(Sigma*1.0 / n_pass);
+        
     }
     return Sigma;
 }
