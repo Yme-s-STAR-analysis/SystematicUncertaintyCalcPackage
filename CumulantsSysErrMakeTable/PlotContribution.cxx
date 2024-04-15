@@ -163,6 +163,8 @@ int main(int argc, char** argv) {
     h1Normal->SetLineColor(1);
     h1Normal->SetFillStyle(3375);
     h1Normal->SetFillColor(41);
+    h1Normal->GetXaxis()->SetLabelFont(64);
+    h1Normal->GetXaxis()->SetLabelSize(24);
     pad1->cd();
     h1Normal->Draw("hist");
     if (withX) {
@@ -189,6 +191,8 @@ int main(int argc, char** argv) {
     h1Quad->SetLineColor(1);
     h1Quad->SetFillStyle(3375);
     h1Quad->SetFillColor(41);
+    h1Quad->GetXaxis()->SetLabelFont(64);
+    h1Quad->GetXaxis()->SetLabelSize(24);
     pad2->cd();
     h1Quad->Draw("hist");
     if (withX) {
