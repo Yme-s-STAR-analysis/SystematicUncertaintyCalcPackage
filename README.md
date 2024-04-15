@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 08.02.2024
+* Data: 15.04.2024
 
-* Version: 2.8
+* Version: 2.9
 
 ## Guide
 
@@ -22,15 +22,15 @@
 
 2. `CumulantsSysErrMakeTable` shows a complecated usage, for beginners, please see `demo/testFormat.cxx` and follow this guide:
 
-> Initilize points `Point` with value, error and tag. You need a default point, and many varied points.
-
-> Initilize sources `Source` with many points. For each source, a default point is needed with `Source::SetDefault`, and varied points are also necessary with `Source::AddVaried`.
-
-> After you have all the sources prepared, add them to the `System`. Using `System::AddSource`.
-
-> The `FormatSystem` class can make a LATEX table with 9 centrality points, which means you will need to prepare 9 `System` instances and add them to the `FormatSystem` with `Formatsystem::LoadSystem`.
-
-> When everything above is done, use `FormatSystem::Print` to save the code of LATEX table.
+    > Initilize points `Point` with value, error and tag. You need a default point, and many varied points.
+    >
+    > Initilize sources `Source` with many points. For each source, a default point is needed with `Source::SetDefault`, and varied points are also necessary with `Source::AddVaried`.
+    >
+    > After you have all the sources prepared, add them to the `System`. Using `System::AddSource`.
+    >
+    > The `FormatSystem` class can make a LATEX table with 9 centrality points, which means you will need to prepare 9 `System` instances and add them to the `FormatSystem` with `Formatsystem::LoadSystem`.
+    >
+    > When everything above is done, use `FormatSystem::Print` to save the code of LATEX table.
 
 3. The documents of this package are not yet finished, will get it updated soon.
 
@@ -44,7 +44,11 @@
 
 ## Change Logs
 
-* 08.02.2024 yghuang v2.8:
+15.04.2024 yghhuang v2.9:
+
+> Add template of contribution plot that shows the fraction of each systematic sources
+
+08.02.2024 yghuang v2.8:
 
 > Update the formula of a systematic uncertainty for a source
 >
@@ -52,41 +56,41 @@
 >
 > Updated DiffPlot and RootFile generator
 
-* 07.02.2024 yghuang v2.7:
+07.02.2024 yghuang v2.7:
 
 > Updated: LATEX table generator, and a python script for generating a concated LATEX code
 
-* 06.02.2024 yghuang v2.6:
+06.02.2024 yghuang v2.6:
 
 > Updated: LATEX table generator
 
-* 27.01.2024 yghuang v2.5:
+27.01.2024 yghuang v2.5:
 
 > Updated: LATEX table generator
 
-* 17.01.2024 yghuang v2.4:
+17.01.2024 yghuang v2.4:
 
 > Updated: Difference plot for systematic uncertainty cuts (those who passed Barlow check or not)
 >
 > Updated: LATEX table generator
 
-* 23.06.2023 yghuang v2.2:
+23.06.2023 yghuang v2.2:
 
 > New feature: make the plot of a variable with selected centrality. See MakeDiffPlot.
 
-* 20.06.2023 yghuang v2.1:
+20.06.2023 yghuang v2.1:
 
 > Now the LATEX table will also show the systematic difference as RED text if this cut did not pass the Barlow Check.
 > Accordingly, the core codes are changed.
 
-* 14.06.2023 yghuang v2.0:
+14.06.2023 yghuang v2.0:
 
 > The barlow check part is incorrect, now fixed.
 
-* 13.05.2023 yghuang v1.1:
+13.05.2023 yghuang v1.1:
 
 > New feature: not only ouput LATEX table codes, but also create root files.
 
-* 13.05.2023 yghuang v1.0:
+13.05.2023 yghuang v1.0:
 
 > First version, all the fundamental functions are implemented.
