@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 15.04.2024
+* Data: 23.04.2024
 
-* Version: 2.9
+* Version: 2.10
 
 ## Guide
 
@@ -43,6 +43,12 @@
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`. 
 
 ## Change Logs
+
+23.04.2024 yghuang v2.10:
+
+> Fix a text bug in table text replacing script, C2/C2 -> C2/C1
+>
+> Updated bacth scripts
 
 15.04.2024 yghhuang v2.9:
 
