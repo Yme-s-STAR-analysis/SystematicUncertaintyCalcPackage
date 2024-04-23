@@ -10,7 +10,7 @@
 # :fig path: to save the plot
 # :withX: with RefMult3: 0, with RefMult3X: 1
 
-FPATH=/Users/huangyige/Work/DataAnalysis/star/BES2/14p6/cumulant/240206Sys/roots
+FPATH=/Path/to/root/files/folder
 RIDX=y0p5
 # PTAG=Netp
 # VTAG=6
@@ -22,13 +22,15 @@ if [ ! -d $TPATH ]; then
         mkdir $TPATH
 fi
 # cumulants
-for PTAG (Netp Pro Pbar) {
-    for (( VTAG=0; VTAG<7; VTAG++ )) {
-        ./MakeDiffPlot $FPATH $RIDX $PTAG $VTAG $CENTIDX $TPATH $WITHX
-    }
-    if [[ $PTAG != "Netp" ]] {
-        for (( VTAG=7; VTAG<=13; VTAG++ )) {
+for WITHX (0 1) {
+    for PTAG (Netp Pro Pbar) {
+        for (( VTAG=0; VTAG<7; VTAG++ )) {
             ./MakeDiffPlot $FPATH $RIDX $PTAG $VTAG $CENTIDX $TPATH $WITHX
+        }
+        if [[ $PTAG != "Netp" ]] {
+            for (( VTAG=7; VTAG<=13; VTAG++ )) {
+                ./MakeDiffPlot $FPATH $RIDX $PTAG $VTAG $CENTIDX $TPATH $WITHX
+            }
         }
     }
 }
