@@ -51,9 +51,11 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
     // landscape env.
     // fout << "\\begin{landscape}\n";
     // header
-    fout << "\\begin{table}[]\n\\begin{tabular}{lcc|ccccccccc}\n";
+    // fout << "\\begin{table}[]\n\\begin{tabular}{|lcc|ccccccccc|}\n";
+    fout << "\\begin{table}[]\n\\scalebox{0.6}{\n\\begin{tabular}{|lcc|ccccccccc|}\n";
     // title row
-    fout << "\\multicolumn{3}{c|}{" << systems[0].GetTag1() << "}";
+    fout << "\\hline\n";
+    fout << "\\multicolumn{3}{|c|}{" << systems[0].GetTag1() << "}";
     fout << "\t& 0-5\\%";
     fout << "\t& 5-10\\%";
     fout << "\t& 10-20\\%";
@@ -111,7 +113,8 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
             fout << "\\\\ \\hline\n";
         }
     }
-    fout << "\\end{tabular}\n\\caption{" << caption << "}\n\\label{tab:" << label << "}\n\\end{table}\n";
+    fout << "\\\\\\hline\n";
+    fout << "\\end{tabular}\n}\n\\caption{" << caption << "}\n\\label{tab:" << label << "}\n\\end{table}\n";
     // fout << "\\end{landscape}\n";
     fout.close();
 }
