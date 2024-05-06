@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 28.04.2024
+* Data: 07.05.2024
 
-* Version: 2.11
+* Version: 2.12
 
 ## How to Use
 
@@ -105,6 +105,10 @@ Modifying `main.cxx` is taken as an example:
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`.
 
 ## Patch Notes
+
+07.05.2024 by yghuang v2.12:
+
+> Updated LATEX table style: add borders and scale (default value 0.6)
 
 28.04.2024 by yghuang v2.11:
 
