@@ -62,6 +62,11 @@ int main(int argc, char** argv) {
     const char* out_dir = argv[3];
     bool withX = (bool)atoi(argv[4]);
 
+
+    const int nCent = 9;
+    const int nSource = 6;
+    const int nCut = 4;
+
     double nPart[nCent] = { // default value
         339, 289, 226, 160, 110, 72, 45, 26, 14
     };
@@ -69,19 +74,14 @@ int main(int argc, char** argv) {
     // if (std::strtmp(Npart_fn, "none")) { 
     if (argc == 6) { // read Npart
         std::ifstream Npart_f;
-        Npart_f.open();
+        Npart_f.open(Npart_fn);
         std::string strtmp;
         int cnt = 0;
         while (std::getline(Npart_f, strtmp)) {
-            nPart[cnt] = atof(strtmp);
+            nPart[cnt] = atof(strtmp.c_str());
             cnt += 1;
         }
     }
-
-    const int nCent = 9;
-    const int nSource = 6;
-    const int nCut = 4;
-
     Point pdef[nCent];
     Point pvrd[nSource][nCut][nCent];
     Source source[nSource][nCent];
