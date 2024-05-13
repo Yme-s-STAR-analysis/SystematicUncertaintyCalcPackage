@@ -1,8 +1,8 @@
 r'''
     Table Caption Replace Scripts
     By Yige Huang
-    07.02.2024
-    Patch: 1.0
+    14.05.2024
+    Patch: 1.1
 '''
 
 class ReplaceTool:
@@ -28,7 +28,8 @@ class ReplaceTool:
     def ReplaceCaption(self, cum_tag: str, withX: str):
         assert(cum_tag in self.mapping)
         assert(withX in ["3", "3X"])
-        return f'\caption{{Detailed systematic uncertainty of net-proton {self.mapping[cum_tag]} from {self.eng} data set. Those systematic differences which did not pass Barlow check will be marked in red. $\Sigma$ is the systematic uncertainty from this source and the definition can be found in {self.eq_ref}. This table shows the results with centrality defined with RefMult{withX}.}}\n'
+        # return f'\caption{{Detailed systematic uncertainty of net-proton {self.mapping[cum_tag]} from {self.eng} data set. Those systematic differences which did not pass Barlow check will be marked in red. $\Sigma$ is the systematic uncertainty from this source and the definition can be found in {self.eq_ref}. This table shows the results with centrality defined with RefMult{withX}.}}\n'
+        return f'\caption{{Detailed systematic uncertainty of net-proton {self.mapping[cum_tag]} from {self.eng} data set. Those systematic differences which did not pass Barlow check will be marked in red. This table shows the results with centrality defined with RefMult{withX}.}}\n'
     
     def ReplaceLabel(self, cum_tag: str, withX: str):
         assert(cum_tag in self.mapping)
@@ -56,8 +57,8 @@ if __name__ == '__main__':
     concate = True # if you want to get a looooong text file with all tables combined
     cat_name = '../tables/Concated.txt'
     rt = ReplaceTool()
-    # ptypes = ['Netp', 'Pro', 'Pbar']
-    ptypes = ['Netp']
+    ptypes = ['Netp', 'Pro', 'Pbar']
+    # ptypes = ['Netp']
     fitems = [
         'C1', 'C2', 'C3', 'C4', 'R21', 'R32', 'R42',
         # 'k1', 'k2', 'k3', 'k4', 'k21', 'k31', 'k41',
@@ -75,4 +76,4 @@ if __name__ == '__main__':
             for subfile_name in outnames:
                 for line in open(subfile_name):
                     f.writelines(line)
-                f.write('\n\n')
+                f.write('\n\\clearpage\n')
