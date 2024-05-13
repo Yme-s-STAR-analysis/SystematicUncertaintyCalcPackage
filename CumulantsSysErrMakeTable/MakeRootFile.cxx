@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <fstream>
 
 #include "TFile.h"
 #include "TString.h"
@@ -26,6 +28,7 @@ int main(int argc, char** argv) {
         :scan tag: a string, liek y0p5, pt1p4 etc.
         :out dir: a string, path to save the out put root file
         :withX: 0 for RefMult3 and 1 for RefMult3X
+        :npart: a string, the file name of mean Npart text
     */
 
     TGraphErrors* tgs[3][14];
@@ -59,6 +62,22 @@ int main(int argc, char** argv) {
     const char* out_dir = argv[3];
     bool withX = (bool)atoi(argv[4]);
 
+    double nPart[nCent] = { // default value
+        339, 289, 226, 160, 110, 72, 45, 26, 14
+    };
+    const char* Npart_fn = argv[5];
+    // if (std::strtmp(Npart_fn, "none")) { 
+    if (argc == 6) { // read Npart
+        std::ifstream Npart_f;
+        Npart_f.open();
+        std::string strtmp;
+        int cnt = 0;
+        while (std::getline(Npart_f, strtmp)) {
+            nPart[cnt] = atof(strtmp);
+            cnt += 1;
+        }
+    }
+
     const int nCent = 9;
     const int nSource = 6;
     const int nCut = 4;
@@ -69,29 +88,26 @@ int main(int argc, char** argv) {
     System system[nCent];
 
     const char* source_tags[nSource] = { // for source names
-        "DCA", "nHitsFit", "$n\\sigma$", "$m^2$", "$\\epsilon$", "$\\gamma_{PID}$"
+        "nHitsFit", "DCA", "$n\\sigma$", "$m^2$", "$\\epsilon$", "Mult."
     };
     const char* cut_tags[nSource][nCut] = { // for cut names
-        {"0.8", "0.9", "1.1", "1.2"}, 
         {"15", "18", "22", "25"}, 
+        {"0.8", "0.9", "1.1", "1.2"}, 
         {"1.6", "1.8", "2.2", "2.5"}, 
         {"(0.50,1.10)", "(0.55,1.15)", "(0.65,1.25)", "(0.70,1.30)"},
         {"$\\times0.98$", "$\\times1.02$", "None", "None"},
-        {"-", "None", "None", "None"},
+        {"+1", "-1", "None", "None"},
     };
     const char* cut_tags4file[nSource][nCut] = { // for get Graph
-        {"dca0p8", "dca0p9", "dca1p1", "dca1p2"}, 
         {"nhit15", "nhit18", "nhit22", "nhit25"}, 
+        {"dca0p8", "dca0p9", "dca1p1", "dca1p2"}, 
         {"nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5"}, 
         {"mass21", "mass22", "mass23", "mass24"}, 
         {"effm", "effp", "None", "None"},
-        {"PidSys", "None", "None", "None"}
+        {"multp", "multm", "None", "None"}
     };
-    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 1}; // set N for sources
+    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 2}; // set N for sources
 
-    double nPart[nCent] = {
-        339, 289, 226, 160, 110, 72, 45, 26, 14
-    };
     for (int ipart=0; ipart<3; ipart++) {
         for (int icum=0; icum<7; icum++) {
             for (int i=0; i<nCent; i++) {

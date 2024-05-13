@@ -48,25 +48,25 @@ int main(int argc, char** argv) {
     FormatSystem fmt;
 
     const char* source_tags[nSource] = { // for source names
-        "DCA", "nHitsFit", "$n\\sigma$", "$m^2$", "$\\epsilon$", "$\\gamma_{PID}$"
+        "DCA", "nHitsFit", "$n\\sigma$", "$m^2$", "$\\epsilon$", "Mult."
     };
     const char* cut_tags[nSource][nCut] = { // for cut names
-        {"a)0.8", "b)0.9", "c)1.1", "d)1.2"}, 
         {"a)15", "b)18", "c)22", "d)25"}, 
+        {"a)0.8", "b)0.9", "c)1.1", "d)1.2"}, 
         {"a)1.6", "b)1.8", "c)2.2", "d)2.5"}, 
         {"a)(0.50,1.10)", "b)(0.55,1.15)", "c)(0.65,1.25)", "d)(0.70,1.30)"},
         {"a)$\\times0.98$", "b)$\\times1.02$", "None", "None"},
-        {"a)varied", "None", "None", "None"}
+        {"a)+1", "b)-1", "None", "None"}
     };
     const char* cut_tags4file[nSource][nCut] = { // for get Graph
-        {"dca0p8", "dca0p9", "dca1p1", "dca1p2"}, 
         {"nhit15", "nhit18", "nhit22", "nhit25"}, 
+        {"dca0p8", "dca0p9", "dca1p1", "dca1p2"}, 
         {"nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5"}, 
         {"mass21", "mass22", "mass23", "mass24"}, 
         {"effm", "effp", "None", "None"},
-        {"PidSys", "None", "None", "None"}
+        {"multp", "multm", "None", "None"}
     };
-    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 1}; // set N for sources
+    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 2}; // set N for sources
 
     fmt = FormatSystem();
     fmt.SetFormat("%.4f");
