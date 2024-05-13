@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 07.05.2024
+* Data: 13.05.2024
 
-* Version: 2.12
+* Version: 2.13
 
 ## How to Use
 
@@ -105,6 +105,14 @@ Modifying `main.cxx` is taken as an example:
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`.
 
 ## Patch Notes
+
+13.05.2024 by yghuang v2.13:
+
+> Update: ROOT file generator, to customize mean Npart value of each bin
+>
+> Remove: gamma (PID efficiency mode) term in systematic uncertainty calculation
+>
+> Add: multiplicity bin term in systematic uncertainty calculation
 
 07.05.2024 by yghuang v2.12:
 
