@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
     FormatSystem fmt;
 
     const char* source_tags[nSource] = { // for source names
-        "DCA", "nHitsFit", "$n\\sigma$", "$m^2$", "$\\epsilon$", "Mult."
+        "nHitsFit", "DCA", "$n\\sigma$", "$m^2$", "$\\epsilon$", "Mult."
     };
     const char* cut_tags[nSource][nCut] = { // for cut names
         {"a)15", "b)18", "c)22", "d)25"}, 
