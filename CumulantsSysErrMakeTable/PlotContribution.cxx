@@ -100,6 +100,7 @@ int main(int argc, char** argv) {
         {"nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5"}, 
         {"mass21", "mass22", "mass23", "mass24"}, 
         {"effm", "effp", "None", "None"},
+        {"multp", "multm", "None", "None"}
     };
     const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 2}; // set N for sources
     int pieColors[nSource] = {
