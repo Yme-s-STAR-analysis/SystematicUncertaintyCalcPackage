@@ -114,6 +114,10 @@ Modifying `main.cxx` is taken as an example:
 >
 > Add: multiplicity bin term in systematic uncertainty calculation
 
+(v2.13.1):
+
+> Fix some bugs and typoes
+
 07.05.2024 by yghuang v2.12:
 
 > Updated LATEX table style: add borders and scale (default value 0.6)
