@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
     };
     const int nCuts4Source[nSource] = {4, 4, 4, 4, 2}; // set N for sources
     int pieColors[nSource] = {
-        kRed, kGreen, kBlue, kGray, kMagenta, kCyan
+        kRed, kGreen, kBlue, kGray, kMagenta // , kCyan
     }; // colors for pie chart
 
     system = System(particle_tag, var_tag, nSource);
