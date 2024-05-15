@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     const char* save_path = argv[6];
     bool withX = (bool)atoi(argv[7]);
 
-    const int nSource = 6;
+    const int nSource = 5;
     const int nCut = 4;
     const int nCent = 9;
 
@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
     }
 
     const char* source_tags[nSource] = { // for source names
-        "nHitsFit", "DCA", "n#sigma", "m^{2}", "#epsilon", "Mult."
+        "nHitsFit", "DCA", "n#sigma", "m^{2}", "#epsilon" // , "Mult."
     };
     const char* cut_tags[nSource][nCut] = { // for cut names
         {"a)15", "b)18", "c)22", "d)25"}, 
@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
         {"a)1.6", "b)1.8", "c)2.2", "d)2.5"}, 
         {"a)(0.50,1.10)", "b)(0.55,1.15)", "c)(0.65,1.25)", "d)(0.70,1.30)"},
         {"a)$\\times0.98$", "b)$\\times1.02$", "None", "None"},
-        {"a)+1", "b)-1", "None", "None"},
+        // {"a)+1", "b)-1", "None", "None"},
     };
     const char* cut_tags4file[nSource][nCut] = { // for get Graph
         {"nhit15", "nhit18", "nhit22", "nhit25"}, 
@@ -100,9 +100,9 @@ int main(int argc, char** argv) {
         {"nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5"}, 
         {"mass21", "mass22", "mass23", "mass24"}, 
         {"effm", "effp", "None", "None"},
-        {"multp", "multm", "None", "None"}
+        // {"multp", "multm", "None", "None"}
     };
-    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 2}; // set N for sources
+    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2}; // set N for sources
     int pieColors[nSource] = {
         kRed, kGreen, kBlue, kGray, kMagenta, kCyan
     }; // colors for pie chart

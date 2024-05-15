@@ -75,15 +75,15 @@ int main(int argc, char** argv) {
     const char* var_tag = var_tags[std::atoi(var_idx)];
     const char* var_title = var_titles[std::atoi(var_idx)];
 
-    const int nCuts = 21;
+    const int nCuts = 19;
     const char* cutsFolderList[nCuts] = { // read root files
         "default", 
         "nhit15", "nhit18", "nhit22", "nhit25", 
         "dca0p8", "dca0p9", "dca1p1", "dca1p2", 
         "nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5", 
         "mass21", "mass22", "mass23", "mass24", 
-        "effm", "effp", 
-        "multp", "multm"
+        "effm", "effp"
+        // "multp", "multm"
     };
 
     const char* cutTags[nCuts] = { // x labels
@@ -92,8 +92,8 @@ int main(int argc, char** argv) {
         "DCA < 0.8", "DCA < 0.9", "DCA < 1.1", "DCA < 1.2", 
         "|n#sigma-#delta| < 1.6", "|n#sigma-#delta| < 1.8", "|n#sigma-#delta| < 2.2", "|n#sigma-#delta| < 2.5", 
         "m^{2}#in(0.50,1.10)", "m^{2}#in(0.55,1.15)", "m^{2}#in(0.65,1.25)", "m^{2}#in(0.70,1.30)", 
-        "#epsilon#times0.98", "#epsilon#times1.02", 
-        "Mult. +1", "Mult. -1"
+        "#epsilon#times0.98", "#epsilon#times1.02"
+        // "Mult. +1", "Mult. -1"
     };
 
     double values[nCuts];

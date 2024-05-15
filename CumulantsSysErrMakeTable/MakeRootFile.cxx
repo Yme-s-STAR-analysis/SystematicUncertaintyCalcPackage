@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
 
 
     const int nCent = 9;
-    const int nSource = 6;
+    const int nSource = 5;
     const int nCut = 4;
 
     double nPart[nCent] = { // default value
@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
     System system[nCent];
 
     const char* source_tags[nSource] = { // for source names
-        "nHitsFit", "DCA", "$n\\sigma$", "$m^2$", "$\\epsilon$", "Mult."
+        "nHitsFit", "DCA", "$n\\sigma$", "$m^2$", "$\\epsilon$" // , "Mult."
     };
     const char* cut_tags[nSource][nCut] = { // for cut names
         {"15", "18", "22", "25"}, 
@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
         {"1.6", "1.8", "2.2", "2.5"}, 
         {"(0.50,1.10)", "(0.55,1.15)", "(0.65,1.25)", "(0.70,1.30)"},
         {"$\\times0.98$", "$\\times1.02$", "None", "None"},
-        {"+1", "-1", "None", "None"},
+        // {"+1", "-1", "None", "None"},
     };
     const char* cut_tags4file[nSource][nCut] = { // for get Graph
         {"nhit15", "nhit18", "nhit22", "nhit25"}, 
@@ -104,9 +104,9 @@ int main(int argc, char** argv) {
         {"nsig1p6", "nsig1p8", "nsig2p2", "nsig2p5"}, 
         {"mass21", "mass22", "mass23", "mass24"}, 
         {"effm", "effp", "None", "None"},
-        {"multp", "multm", "None", "None"}
+        // {"multp", "multm", "None", "None"}
     };
-    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2, 2}; // set N for sources
+    const int nCuts4Source[nSource] = {4, 4, 4, 4, 2}; // set N for sources
 
     for (int ipart=0; ipart<3; ipart++) {
         for (int icum=0; icum<7; icum++) {
