@@ -122,6 +122,10 @@ Modifying `main.cxx` is taken as an example:
 
 > Fix some bugs
 
+(v2.13.3):
+
+> Varying multiplicity is now not an source any more
+
 07.05.2024 by yghuang v2.12:
 
 > Updated LATEX table style: add borders and scale (default value 0.6)
