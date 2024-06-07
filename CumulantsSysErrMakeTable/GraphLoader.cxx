@@ -22,5 +22,6 @@ void GraphLoader::GetPoint(const char* cut_tag, const char* file_tag, const char
     tf->GetObject(Form("%s_%s", particle_tag, var_tag), tg);
     p->SetValue(tg->GetPointY(cent));
     p->SetError(tg->GetErrorY(cent));
+    x = tg->GetPointX(cent); // one can get this value via GraphLoader::GetX() after calling GetPoint
     tf->Close();
 }
