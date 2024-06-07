@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 13.05.2024
+* Data: 07.06.2024
 
-* Version: 2.13
+* Version: 2.14
 
 ## How to Use
 
@@ -105,6 +105,12 @@ Modifying `main.cxx` is taken as an example:
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`.
 
 ## Patch Notes
+
+07.06.2024 by yghuang v2.14:
+
+> Update: Multi-function executable is imported, one-click to get all we need
+>
+> The users' guidance is not yet updated, will come up soon
 
 13.05.2024 by yghuang v2.13:
 
