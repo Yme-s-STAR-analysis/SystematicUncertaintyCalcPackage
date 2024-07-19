@@ -375,7 +375,7 @@ int main(int argc, char** argv) {
                 // plot barlow limit boxes
                 for (int iCut = 0; iCut < nValidCuts; iCut++) {
                     tline->DrawLine(iCut-0.3, pdef[iCent].val(), iCut+0.3, pdef[iCent].val());
-                    tbx->DrawBox(iCut-0.3, pdef[iCent].val() - bl_errors[iCut], iCut+0.3, pdef[iCent].val() + bl_errors[iCut]);
+                    tbx->DrawBox(iCut-0.3, pdef[iCent].val() - bl_barlow_err[iCut], iCut+0.3, pdef[iCent].val() + bl_barlow_err[iCut]);
                 }
 
                 leg->Draw("same");
@@ -528,7 +528,7 @@ int main(int argc, char** argv) {
                     // plot barlow limit boxes
                     for (int iCut = 0; iCut < nValidCuts; iCut++) {
                         tline->DrawLine(iCut-0.3, pdef[iCent].val(), iCut+0.3, pdef[iCent].val());
-                        tbx->DrawBox(iCut-0.3, pdef[iCent].val() - bl_errors[iCut], iCut+0.3, pdef[iCent].val() + bl_errors[iCut]);
+                        tbx->DrawBox(iCut-0.3, pdef[iCent].val() - bl_barlow_err[iCut], iCut+0.3, pdef[iCent].val() + bl_barlow_err[iCut]);
                     }
 
                     leg->Draw("same");
