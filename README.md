@@ -106,6 +106,10 @@ Modifying `main.cxx` is taken as an example:
 
 ## Patch Notes
 
+19.07.2024 by yghuang v2.15:
+
+> Fix a bug: the height of color band of Barlow plot was incorrect
+
 07.06.2024 by yghuang v2.14:
 
 > Update: Multi-function executable is imported, one-click to get all we need
