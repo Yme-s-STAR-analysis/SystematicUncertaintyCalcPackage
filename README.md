@@ -2,9 +2,9 @@
 
 * Author: Yige Huang
 
-* Data: 07.06.2024
+* Data: 09.05.2025
 
-* Version: 2.14
+* Version: 3.0
 
 ## How to Use
 
@@ -105,6 +105,14 @@ Modifying `main.cxx` is taken as an example:
 3. The output format can be changed with `FormatSystem::SetFormat`, the default argument is `%.4f`.
 
 ## Patch Notes
+
+09.05.2025 by yghuang v3.0:
+
+> Fix a bug: the percentage (relative) deviation of each source to the default central value could be negative if the central value itself was negative
+>
+> Remove: executables with separate functions are removed, now use Multifunction only
+>
+> New: LongNote series executable, script, which can createa a complete tex file, supporting rapidity and T scan
 
 19.07.2024 by yghuang v2.15:
 
