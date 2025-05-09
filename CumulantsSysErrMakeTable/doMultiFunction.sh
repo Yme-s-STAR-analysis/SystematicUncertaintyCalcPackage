@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-FPATH=/Users/huangyige/Work/DataAnalysis/star/BES2/OverAll/3cum/17/roots
-STAG=y0p5
+FPATH=$(PWD)/../../roots
+# STAG=y0p5
 LPATH=../table
 RPATH=../output
 CPATH=../cplot
@@ -23,6 +23,7 @@ if [ ! -d $BPATH ]; then
         mkdir $BPATH
 fi
 
-for WITHX (0 1) {
-    ./MultiFunction $FPATH $WITHX $STAG $LPATH $RPATH $CPATH $BPATH
+for STAG (y0p1 y0p2 y0p3 y0p4 y0p6 pt0p8 pt1p0 pt1p2 pt1p4 pt1p6 pt1p8) {
+        echo "CURRENT TAG: $STAG"
+        ./LongNoteItems $FPATH 1 $STAG $LPATH $RPATH $CPATH $BPATH
 }
