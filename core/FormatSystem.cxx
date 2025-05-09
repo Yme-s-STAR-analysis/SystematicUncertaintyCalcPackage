@@ -105,7 +105,7 @@ void FormatSystem::Print(const char* outname, const char* caption, const char* l
         }
         fout << "\\\\ \n\t&&";
         for (int isys=0; isys<nCent; isys++) {
-            fout << "\t & " << Form("%.1f", systems[isys].GetSysErrValue(ivrd)*100 / systems[isys].GetDefaultValue()) << "\\\%";
+            fout << "\t & " << Form("%.1f", fabs(systems[isys].GetSysErrValue(ivrd)*100 / systems[isys].GetDefaultValue())) << "\\\%";
         }
         if (ivrd == nvrd-1) {
             fout << "\n";
