@@ -112,7 +112,7 @@ Modifying `main.cxx` is taken as an example:
 >
 > Remove: executables with separate functions are removed, now use Multifunction only
 >
-> New: LongNote series executable, script, which can createa a complete tex file, supporting rapidity and T scan
+> New: A new series of script, which can createa a complete tex file, supporting rapidity and pT scan; note that, the old one still works, but the new version is strongly recommanded
 
 19.07.2024 by yghuang v2.15:
 
