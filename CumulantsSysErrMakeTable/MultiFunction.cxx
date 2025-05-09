@@ -106,46 +106,46 @@ int main(int argc, char** argv) {
     };
 
     const int nQuantityNetp = 11;
-    const int nQuantityNetpExtend = 4;
+    const int nQuantityNetpExtend = 0;
     const char* quantity_tags_netp[nQuantityNetp + nQuantityNetpExtend] = {
         "C1", "C2", "C3", "C4", "R21", "R31", "R32", "R42", "ppb", "R2s", "R3s", // all
-        "C5", "C6", "R51", "R62" // extend
+        // "C5", "C6", "R51", "R62" // extend
     };
     const char* quantity_titles_netp[nQuantityNetp + nQuantityNetpExtend] = {
         "C_{1}", "C_{2}", "C_{3}", "C_{4}",
         "C_{2}/C_{1}", "C_{3}/C_{1}", "C_{3}/C_{2}", "C_{4}/C_{2}", 
         "<p+#bar{p}>", "C_{2}/<p+#bar{p}>", "C_{3}/<p+#bar{p}>", // all
-        "C_{5}", "C_{6}", "C_{5}/C_{1}", "C_{6}/C_{2}" // extend
+        // "C_{5}", "C_{6}", "C_{5}/C_{1}", "C_{6}/C_{2}" // extend
     };
     const char* quantity_titles_table_netp[nQuantityNetp + nQuantityNetpExtend] = {
         "$C_{1}$", "$C_{2}$", "$C_{3}$", "$C_{4}$",
         "$C_{2}/C_{1}$", "$C_{3}/C_{1}$", "$C_{3}/C_{2}$", "$C_{4}/C_{2}$", 
         "$\\left<p+\\bar{p}$\\right>", "$C_{2}/\\left<p+\\bar{p}\\right>$", "$C_{3}/\\left<p+\\bar{p}\\right>$", // all
-        "$C_{5}$", "$C_{6}$", "$C_{5}/C_{1}$", "$C_{6}/C_{2}$" // extend
+        // "$C_{5}$", "$C_{6}$", "$C_{5}/C_{1}$", "$C_{6}/C_{2}$" // extend
     };
 
     const int nQuantity = 15;
-    const int nQuantityExtend = 8;
+    const int nQuantityExtend = 0;
     const char* quantity_tags[nQuantity + nQuantityExtend] = {
         "C1", "C2", "C3", "C4", "R21", "R31", "R32", "R42",
         "k1", "k2", "k3", "k4", "k21", "k31", "k41", // all
-        "C5", "C6", "k5", "k6", "R51", "R62", "k51", "k61" // extend
+        // "C5", "C6", "k5", "k6", "R51", "R62", "k51", "k61" // extend
     };
     const char* quantity_titles[nQuantity + nQuantityExtend] = {
         "C_{1}", "C_{2}", "C_{3}", "C_{4}",
         "C_{2}/C_{1}", "C_{3}/C_{1}", "C_{3}/C_{2}", "C_{4}/C_{2}", 
         "#kappa_{1}", "#kappa_{2}", "#kappa_{3}", "#kappa_{4}", 
         "#kappa_{2}/#kappa_{1}", "#kappa_{3}/#kappa_{1}", "#kappa_{4}/#kappa_{1}", // all
-        "C_{5}", "C_{6}", "#kappa_{5}", "#kappa_{6}", 
-        "C_{5}/C_{1}", "C_{6}/C_{2}",  "#kappa_{5}/#kappa_{1}", "#kappa_{6}/#kappa_{1}" // extend
+        // "C_{5}", "C_{6}", "#kappa_{5}", "#kappa_{6}", 
+        // "C_{5}/C_{1}", "C_{6}/C_{2}",  "#kappa_{5}/#kappa_{1}", "#kappa_{6}/#kappa_{1}" // extend
     };
     const char* quantity_table_titles[nQuantity + nQuantityExtend] = {
         "$C_{1}$", "$C_{2}$", "$C_{3}$", "$C_{4}$",
         "$C_{2}/C_{1}$", "$C_{3}/C_{1}$", "$C_{3}/C_{2}$", "$C_{4}/C_{2}$", 
         "$\\kappa_{1}$", "$\\kappa_{2}$", "$\\kappa_{3}$", "$\\kappa_{4}$", 
         "$\\kappa_{2}/\\kappa_{1}$", "$\\kappa_{3}/\\kappa_{1}$", "$\\kappa_{4}/\\kappa_{1}$", // all
-        "$C_{5}$", "$C_{6}$", "$\\kappa_{5}$", "$\\kappa_{6}$", 
-        "$C_{5}/C_{1}$", "$C_{6}/C_{2}$",  "$\\kappa_{5}/\\kappa_{1}$", "$\\kappa_{6}/\\kappa_{1}" // extend
+        // "$C_{5}$", "$C_{6}$", "$\\kappa_{5}$", "$\\kappa_{6}$", 
+        // "$C_{5}/C_{1}$", "$C_{6}/C_{2}$",  "$\\kappa_{5}/\\kappa_{1}$", "$\\kappa_{6}/\\kappa_{1}" // extend
     };
 
     // ============= Initialization
@@ -291,7 +291,8 @@ int main(int argc, char** argv) {
             fmt.LoadSystem(iCent, system[iCent]);
 
             // contribution plot
-            if (iCent == 0 || iCent == 1 || iCent == 8) {
+            if (iCent == 0) { // only make figures for most central collisions
+            // if (iCent == 0 || iCent == 1 || iCent == 8) {
                 tot_err = system[iCent].GetSigma();
                 for (int iSource = 0; iSource < nSource; iSource++) {
                     double tmp = system[iCent].GetSysErrValue(iSource);
@@ -444,7 +445,8 @@ int main(int argc, char** argv) {
                 fmt.LoadSystem(iCent, system[iCent]);
 
                 // contribution plot
-                if (iCent == 0 || iCent == 1 || iCent == 8) {
+                if (iCent == 0) { // only make figures for most central collisions
+                // if (iCent == 0 || iCent == 1 || iCent == 8) {
                     tot_err = system[iCent].GetSigma();
                     for (int iSource = 0; iSource < nSource; iSource++) {
                         double tmp = system[iCent].GetSysErrValue(iSource);
@@ -460,7 +462,7 @@ int main(int argc, char** argv) {
                     }
                     h1Contr->Draw("hist");
                     lat->DrawLatexNDC(0.02, 0.92, "#frac{#sigma_{sys. source}}{#sigma_{sys. total}}#times 100");
-                    lat->DrawLatexNDC(0.55, 0.92, Form("%s %s %s", cent_titles[iCent], part_title, quantity_titles_netp[iQuantity]));
+                    lat->DrawLatexNDC(0.55, 0.92, Form("%s %s %s", cent_titles[iCent], part_title, quantity_tags[iQuantity]));
                     if (withX) {
                         c_cplot->Print(Form("%s/Contr_%s_%s_%s_cent%dX.pdf", cplot_path, part, quantity_tags[iQuantity], scan_tag, iCent));
                     } else {
